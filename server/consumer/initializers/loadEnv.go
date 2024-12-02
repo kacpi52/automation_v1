@@ -3,14 +3,14 @@ package consumer_initializers
 import (
 	"fmt"
 
-	"github.com/joho/godotenv"
+	//"github.com/joho/godotenv"
 )
 
 func LoadEnv(path string) error{
-	err := godotenv.Load(path)
-	if err != nil{
-		return fmt.Errorf("not load file env: %v", err)
-	}
+	// err := godotenv.Load(path)
+	// if err != nil{
+	// 	return fmt.Errorf("not load file env: %v", err)
+	// }
 	fmt.Println("Successfully loadEnv!")
 	return nil
 }

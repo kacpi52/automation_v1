@@ -25,11 +25,11 @@ func ConnectToDataBase() (*sql.DB, error){
 	}
 	
 
-	err = db.Ping()
-	if err != nil {
-		db.Close()
-		return nil, fmt.Errorf("not pinnging the database: %v", err)
-	}
+	// err = db.Ping()
+	// if err != nil {
+	// 	db.Close()
+	// 	return nil, fmt.Errorf("not pinnging the database: %v", err)
+	// }
 
 	db.SetMaxOpenConns(25)
 	db.SetMaxIdleConns(25)
