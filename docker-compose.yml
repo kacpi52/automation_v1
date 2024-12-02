@@ -1,0 +1,48 @@
+services:
+  psql_db_training_app:
+    image: postgres:16
+    container_name: psql_db_training_app
+    ports:
+      - 5432:5432
+    volumes:
+      - psql_db_training_app:/var/lib/postgresql/data
+      - ./dbshell:/docker-entrypoint-initdb.d/
+    networks:
+      - training_app
+    environment:
+      - POSTGRES_DB=training_app
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=mysecurepassword
+
+  api_training_app:
+    container_name: api_training_app
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - 3001:3001
+    volumes:
+      - api_training_app:/usr/src/app/
+    networks:
+      - training_app
+    depends_on:
+      - psql_db_training_app
+    environment:
+      - PORT=3001
+      - DB_HOST=psql_db_training_app
+      - DB_PORT=5432
+      - DB_USER=admin
+      - DB_PASSWORD=mysecurepassword
+      - DB_DBNAME=training_app  # Ensure this matches POSTGRES_DB in db service
+      - AUTH0_DOMAIN=your-auth0-domain
+      - AUTH0_AUDIENCE=your-auth0-audience
+      - FRONT_URL=http://localhost:3000
+      - BASEURL=http://localhost:3001
+
+volumes:
+  api_training_app:
+  psql_db_training_app:
+networks:
+  training_app:
+    driver: bridge
+    
