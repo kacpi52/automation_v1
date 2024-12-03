@@ -1,6 +1,6 @@
 services:
   psql_db_training_app:
-    image: postgres:16
+    image: postgres:16-alpine3.20
     container_name: psql_db_training_app
     ports:
       - 5432:5432
@@ -38,7 +38,26 @@ services:
       - AUTH0_AUDIENCE=your-auth0-audience
       - FRONT_URL=http://localhost:3000
       - BASEURL=http://localhost:3001
-
+  front_training_app:
+    container_name: front_training_app
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - training_app
+    depends_on:
+      - api_training_app
+    environment:
+      - API_SERVER=api_training_app
+      - DOMAIN_AUTH0=https://your-auth0-domain.com
+      - CLIENT_ID_AUTH0=your-client-id
+      - REDIRECT_URL=front_training_app
+      - AUDIENCE=your-auth0-audience
+      - AUTH0_EMAIL=your-email@example.com
+      - AUTH0_PASSWORD=your-password
+      - DIET_AUTH0_ENDPOINT=https://your-diet-auth0-endpoint.com
 volumes:
   api_training_app:
   psql_db_training_app:
