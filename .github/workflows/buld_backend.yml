@@ -1,0 +1,20 @@
+name: Build frontend
+on:
+    workflow_dispatch:
+    push:
+      branches:
+        - main
+      paths:
+        - 'server/**'
+    pull_request:
+      branches:
+        - main
+      paths:
+        - 'server/**'
+jobs:
+  get-code:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3

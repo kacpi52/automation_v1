@@ -1,4 +1,5 @@
 services:
+
   psql_db_training_app:
     image: postgres:16-alpine3.20
     container_name: psql_db_training_app
@@ -33,11 +34,12 @@ services:
       - DB_PORT=5432
       - DB_USER=admin
       - DB_PASSWORD=mysecurepassword
-      - DB_DBNAME=training_app  # Ensure this matches POSTGRES_DB in db service
+      - DB_DBNAME=training_app  
       - AUTH0_DOMAIN=your-auth0-domain
       - AUTH0_AUDIENCE=your-auth0-audience
       - FRONT_URL=http://localhost:3000
       - BASEURL=http://localhost:3001
+
   front_training_app:
     container_name: front_training_app
     build:
@@ -58,9 +60,11 @@ services:
       - AUTH0_EMAIL=your-email@example.com
       - AUTH0_PASSWORD=your-password
       - DIET_AUTH0_ENDPOINT=https://your-diet-auth0-endpoint.com
+
 volumes:
   api_training_app:
   psql_db_training_app:
+
 networks:
   training_app:
     driver: bridge
