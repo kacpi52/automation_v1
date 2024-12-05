@@ -1,0 +1,72 @@
+services:
+
+  psql_db_training_app_test:
+    image: postgres:16-alpine3.20
+    container_name: psql_db_training_app_test
+    ports:
+      - 5433:5432
+    volumes:
+      - psql_db_training_app_test:/var/lib/postgresql/data
+      - ./dbshell:/docker-entrypoint-initdb.d/
+    networks:
+      - training_app_test
+    environment:
+      - POSTGRES_DB=training_app_test
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=mysecurepassword
+
+  api_training_app_test:
+    container_name: api_training_app_test
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+      target: test
+    ports:
+      - 3003:3001
+    volumes:
+      - api_training_app_test:/usr/src/app/
+    networks:
+      - training_app_test
+    depends_on:
+      - psql_db_training_app_test
+    environment:
+      - PORT=3003
+      - DB_HOST=psql_db_training_app_test
+      - DB_PORT=5433
+      - DB_USER=admin
+      - DB_PASSWORD=mysecurepassword
+      - DB_DBNAME=training_app_test
+      - AUTH0_DOMAIN=your-auth0-domain
+      - AUTH0_AUDIENCE=your-auth0-audience
+      - FRONT_URL=front_training_app_test
+      - BASEURL=api_training_app_test
+
+  front_training_app_test:
+    container_name: front_training_app_test
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3002:3000
+    networks:
+      - training_app_test
+    depends_on:
+      - api_training_app_test
+    environment:
+      - API_SERVER=api_training_app_test
+      - DOMAIN_AUTH0=https://your-auth0-domain.com
+      - CLIENT_ID_AUTH0=your-client-id
+      - REDIRECT_URL=front_training_app_test
+      - AUDIENCE=your-auth0-audience
+      - AUTH0_EMAIL=your-email@example.com
+      - AUTH0_PASSWORD=your-password
+      - DIET_AUTH0_ENDPOINT=https://your-diet-auth0-endpoint.com
+
+volumes:
+  api_training_app_test:
+  psql_db_training_app_test:
+
+networks:
+  training_app_test:
+    driver: bridge
+    
