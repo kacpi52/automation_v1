@@ -22,6 +22,11 @@ jobs:
         with:
            username: ${{ vars.DOCKERHUB_USER }}
            password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Extract short SHA
+        id: vars
+        run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
+
       - name: Build and push server image
         uses: docker/build-push-action@v6
         with:
@@ -29,9 +34,8 @@ jobs:
           file: ./server/Dockerfile
           push: true
           tags: |
-              kacpi52/training_app_api:$GITHUB_SHA
+              kacpi52/training_app_api:${{ env.SHORT_SHA }}
    
-         # Build and push the frontend image
       - name: Build and push frontend image
         uses: docker/build-push-action@v6
         with:
@@ -39,4 +43,4 @@ jobs:
           file: ./frontend/Dockerfile
           push: true
           tags: |
-              kacpi52/training_app_frontend:$GITHUB_SHA
+              kacpi52/training_app_frontend:${{ env.SHORT_SHA }}
