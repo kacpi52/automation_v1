@@ -11,9 +11,9 @@ services:
     networks:
       - training_app
     environment:
-      - POSTGRES_DB=training_app
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=mysecurepassword
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
 
   api_training_app:
     container_name: api_training_app
@@ -29,16 +29,16 @@ services:
     depends_on:
       - psql_db_training_app
     environment:
-      - PORT=3001
-      - DB_HOST=psql_db_training_app
-      - DB_PORT=5432
-      - DB_USER=admin
-      - DB_PASSWORD=mysecurepassword
-      - DB_DBNAME=training_app  
-      - AUTH0_DOMAIN=your-auth0-domain
-      - AUTH0_AUDIENCE=your-auth0-audience
-      - FRONT_URL=http://localhost:3000
-      - BASEURL=http://localhost:3001
+      - PORT=${PORT}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DBNAME=${DB_DBNAME}  
+      - AUTH0_DOMAIN=${AUTH0_DOMAIN}
+      - AUTH0_AUDIENCE=${AUTH0_AUDIENCE}
+      - FRONT_URL=${FRONT_URL}
+      - BASEURL=${BASEURL}
 
   front_training_app:
     container_name: front_training_app
@@ -52,13 +52,13 @@ services:
     depends_on:
       - api_training_app
     environment:
-      - API_SERVER=api_training_app
-      - DOMAIN_AUTH0=https://your-auth0-domain.com
-      - CLIENT_ID_AUTH0=your-client-id
-      - REDIRECT_URL=front_training_app
-      - AUDIENCE=your-auth0-audience
-      - AUTH0_EMAIL=your-email@example.com
-      - AUTH0_PASSWORD=your-password
+      - API_SERVER=${BASEURL}
+      - DOMAIN_AUTH0=${AUTH0_DOMAIN}
+      - CLIENT_ID_AUTH0=${AUTH0_CLIENT_ID}
+      - REDIRECT_URL=${FRONT_URL}
+      - AUDIENCE=${AUTH0_AUDIENCE}
+      - AUTH0_EMAIL=${AUTH0_EMAIL}
+      - AUTH0_PASSWORD=${AUTH0_PASSWORD}
       - DIET_AUTH0_ENDPOINT=https://your-diet-auth0-endpoint.com
 
 volumes:

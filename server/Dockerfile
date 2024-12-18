@@ -10,11 +10,12 @@ COPY . .
 
 RUN go build -v -o main .
 
-FROM base AS MIGRATION
-CMD [ "go", "run", "./consumer/database/migration/run/main.go" ]
-
+# Skrypt entrypoint
+COPY migrateAndTest.sh /app/migrateAndTest.sh
+RUN chmod +x /app/migrateAndTest.sh
+# @TODO check that migrations in main are needed 
 FROM base AS test
-CMD ["go", "test", "./..."]
+CMD ["/app/migrateAndTest.sh"]
 
 FROM base AS production
 CMD ["/app/main"]
