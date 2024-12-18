@@ -35,6 +35,6 @@ func ConnectToDataBase() (*sql.DB, error){
 	db.SetMaxIdleConns(25)
 	db.SetConnMaxLifetime(5 * time.Minute)
 
-	fmt.Println("Successfully connected to the database!")
+	//fmt.Println("Successfully connected to the database!")
 	return db, nil
 }

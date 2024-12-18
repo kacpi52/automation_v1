@@ -10,7 +10,6 @@ import (
 	training_function "myInternal/consumer/handler/training"
 	training_function_test "myInternal/consumer/handler/training/test"
 	helpers "myInternal/consumer/helper"
-	env "myInternal/consumer/initializers"
 	"testing"
 )
 
@@ -39,7 +38,7 @@ func TestChange(t *testing.T) {
 		Json: jsonMap,
 	}
 
-	env.LoadEnv("./.env")
+	//env.LoadEnv("./.env")
 	valueCreate, err := post_function.Create(params)
 	if err != nil {
 		t.Fatalf("error create function: %v", err)
@@ -82,7 +81,7 @@ func TestChange(t *testing.T) {
 
 func TestChangeAll(t *testing.T){
 
-	env.LoadEnv("./.env")
+	//env.LoadEnv("./.env")
 	createProjectId, err := project_function_test.CreateProject()
 	if err != nil {
 		t.Fatalf("error in create project function: %v", err)

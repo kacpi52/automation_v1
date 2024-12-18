@@ -13,4 +13,7 @@ func TestConnectToDataBase(t *testing.T) {
 		t.Errorf("not connect do database: %s", err.Error())
 	}
 	defer db.Close()
+
+
+	
 }

@@ -30,7 +30,7 @@ func TestChangeUser(t *testing.T) {
 	jsonMap, _ := helpers.BindJSONToMap(&changeUser)
 
 	params = params_data.Params{
-		Header: common_test.UserTest,
+		Header: common_test.UserTest2,
 		Json: jsonMap,
 	}
 

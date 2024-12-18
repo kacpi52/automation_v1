@@ -47,7 +47,7 @@ func CollectionUser()(ResponseCollectionUser, error) {
     }
 	defer db.Close()
 
-	query := `SELECT id, "userName", "lastName", "nickName", email FROM users;`
+	query := `SELECT "id", "userName", "lastName", "nickName", "email" FROM users;`
 	rows, err := db.Query(query)
 	if err != nil {
 		return ResponseCollectionUser{}, err

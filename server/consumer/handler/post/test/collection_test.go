@@ -8,7 +8,6 @@ import (
 	post_function "myInternal/consumer/handler/post"
 	project_function_test "myInternal/consumer/handler/project/test"
 	helpers "myInternal/consumer/helper"
-	env "myInternal/consumer/initializers"
 	"testing"
 )
 
@@ -37,7 +36,7 @@ func TestCollectionAll(t *testing.T) {
 		Json: jsonMap,
 	}
 
-	env.LoadEnv("./.env")
+	//env.LoadEnv("./.env")
 
 	_, err = post_function.Create(params)
 	if err != nil {
@@ -97,7 +96,7 @@ func TestCollectionOne(t *testing.T){
 		Json:   jsonMap,
 	}
 
-	env.LoadEnv("./.env")
+	//env.LoadEnv("./.env")
 	valueCreate, err := post_function.Create(params)
 	if err != nil {
 			t.Fatalf("error in create function: %v", err)
@@ -117,7 +116,7 @@ func TestCollectionOne(t *testing.T){
 func TestCollectionOnePublic(t *testing.T){
 	var err error
 	var params params_data.Params
-	env.LoadEnv("./.env")
+	//env.LoadEnv("./.env")
 
 	dataBody := `{
 		"day":1,
