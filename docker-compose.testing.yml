@@ -12,7 +12,7 @@ services:
     networks:
       - training_app_test
     environment:
-       - POSTGRES_DB=${DB_NAME}
+       - POSTGRES_DB=${DB_DBNAME}
        - POSTGRES_USER=${DB_USER}
        - POSTGRES_PASSWORD=${DB_PASSWORD}
 

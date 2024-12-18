@@ -11,7 +11,7 @@ services:
     networks:
       - training_app
     environment:
-      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_DB=${DB_DBNAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
 
@@ -59,7 +59,7 @@ services:
       - AUDIENCE=${AUTH0_AUDIENCE}
       - AUTH0_EMAIL=${AUTH0_EMAIL}
       - AUTH0_PASSWORD=${AUTH0_PASSWORD}
-      - DIET_AUTH0_ENDPOINT=https://your-diet-auth0-endpoint.com
+      - DIET_AUTH0_ENDPOINT=${AUTH0_DIET_ENDPOINT}
 
 volumes:
   api_training_app:
