@@ -1,15 +1,16 @@
 name: run test
 on:
     workflow_dispatch:
-    push:
-      branches:
-        - main
+    # @TODO change it after succesfully run push to dockerhub 
+    # push:
+    #   branches:
+    #     - main
     pull_request:
       branches:
         - main
     
 jobs:
-  run-test:
+  run-integration-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
