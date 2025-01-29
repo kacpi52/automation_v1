@@ -37,8 +37,6 @@ jobs:
         id: login-ocir
         with:
           auth-token: ${{ secrets.OCI_AUTH_TOKEN }}
-          region: ${{ secrets.OCI_CLI_REGION }}
-          tenancy: ${{ secrets.OCI_CLI_TENANCY }}
 
       - name: Get or create OCIR server repository
         id: get-ocir-repository-server
