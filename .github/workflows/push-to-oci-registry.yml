@@ -42,7 +42,7 @@ jobs:
 
       - name: Get or create OCIR server repository
         id: get-ocir-repository-server
-        uses: oracle-actions/get-ocir-repository@v1
+        uses: oracle-actions/get-ocir-repository@v1.3.0
         with:
           compartment-ocid: ${{ secrets.OCI_COMPARTMENT_OCID }}
           repository-name: ${{ env.SERVER_REPO_NAME }}
@@ -57,7 +57,7 @@ jobs:
               ${{ steps.get-ocir-repository-server.outputs.repository_uri }}:${{ env.SHORT_SHA }}   
       - name: Get or create OCIR frontend repository
         id: get-ocir-repository-frontend
-        uses: oracle-actions/get-ocir-repository@v1
+        uses: oracle-actions/get-ocir-repository@v1.3.0
         with:
           compartment-ocid: ${{ secrets.OCI_COMPARTMENT_OCID }}
           repository-name: ${{ env.FRONT_REPO_NAME}}
